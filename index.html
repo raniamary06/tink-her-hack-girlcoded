@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeamMosaic - Where People Don't Just Connect — They Fit</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --coral: #FF6B6B;
+            --peach: #FFB84D;
+            --mint: #4ECDC4;
+            --cream: #FFF8F0;
+            --charcoal: #2C3E50;
+            --soft-gray: #95A5A6;
+            --white: #FFFFFF;
+            --shadow: rgba(0, 0, 0, 0.08);
+            --gradient-warm: linear-gradient(135deg, #FF6B6B 0%, #FFB84D 100%);
+            --gradient-cool: linear-gradient(135deg, #4ECDC4 0%, #556270 100%);
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--charcoal);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Fraunces', serif;
+            font-weight: 700;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--white);
+            padding: 1.2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.6s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-family: 'Fraunces', serif;
+            font-weight: 800;
+            background: var(--gradient-warm);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-size: 0.8rem;
+            color: var(--soft-gray);
+            font-style: italic;
+            margin-top: -0.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--charcoal);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--coral);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--coral);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        /* Toggle Switch */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            position: relative;
+        }
+
+        .toggle-label {
+            font-size: 0.85rem;
+            color: var(--charcoal);
+            font-weight: 500;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            background: var(--soft-gray);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: var(--coral);
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: var(--white);
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(24px);
+        }
+
+        .tooltip {
+            position: absolute;
+            bottom: -60px;
+            right: 0;
+            background: var(--charcoal);
+            color: var(--white);
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            width: 220px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 100;
+        }
+
+        .toggle-container:hover .tooltip {
+            opacity: 1;
+        }
+
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient-warm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .profile-avatar:hover {
+            transform: scale(1.1);
+        }
+
+        /* Main Dashboard */
+        .main-container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .welcome-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .welcome-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--charcoal);
+            animation: fadeIn 0.8s ease 0.2s both;
+        }
+
+        .welcome-header p {
+            font-size: 1.2rem;
+            color: var(--soft-gray);
+            animation: fadeIn 0.8s ease 0.4s both;
+        }
+
+        .path-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .path-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px var(--shadow);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .path-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--gradient-warm);
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .path-card.builder::before {
+            background: var(--gradient-cool);
+        }
+
+        .path-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .path-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .path-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .path-card h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--charcoal);
+        }
+
+        .path-card p {
+            color: var(--soft-gray);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        .path-btn {
+            background: var(--gradient-warm);
+            color: var(--white);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .path-card.builder .path-btn {
+            background: var(--gradient-cool);
+        }
+
+        .path-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Learner Path View */
+        .section-header {
+            margin-bottom: 2rem;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: var(--soft-gray);
+            font-size: 1.1rem;
+        }
+
+        .learner-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .option-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 30px var(--shadow);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+        }
+
+        .option-card:hover {
+            border-color: var(--coral);
+            transform: translateY(-5px);
+        }
+
+        .option-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--charcoal);
+        }
+
+        .option-card p {
+            color: var(--soft-gray);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .option-btn {
+            background: var(--coral);
+            color: var(--white);
+            border: none;
+            padding: 0.9rem 1.8rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option-btn:hover {
+            background: var(--charcoal);
+        }
+
+        /* Swipe Cards */
+        .swipe-container {
+            max-width: 500px;
+            margin: 3rem auto;
+            position: relative;
+            height: 600px;
+        }
+
+        .swipe-card {
+            position: absolute;
+            width: 100%;
+            background: var(--white);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .swipe-card.swipe-left {
+            transform: translateX(-150%) rotate(-15deg);
+            opacity: 0;
+        }
+
+        .swipe-card.swipe-right {
+            transform: translateX(150%) rotate(15deg);
+            opacity: 0;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-name {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-tagline {
+            color: var(--soft-gray);
+            font-style: italic;
+            font-size: 1rem;
+        }
+
+        .profile-section {
+            margin: 1.5rem 0;
+        }
+
+        .profile-section h4 {
+            font-size: 1rem;
+            color: var(--coral);
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .skill-tag {
+            background: var(--cream);
+            color: var(--charcoal);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .profile-detail {
+            color: var(--charcoal);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .swipe-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .swipe-btn {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px var(--shadow);
+        }
+
+        .swipe-btn.pass {
+            background: var(--white);
+            color: var(--soft-gray);
+        }
+
+        .swipe-btn.match {
+            background: var(--coral);
+            color: var(--white);
+        }
+
+        .swipe-btn:hover {
+            transform: scale(1.15);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            animation: scaleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal p {
+            color: var(--soft-gray);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .modal-btn {
+            background: var(--gradient-warm);
+            color: var(--white);
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Chat Interface */
+        .chat-container {
+            background: var(--white);
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 2rem auto;
+            box-shadow: 0 10px 40px var(--shadow);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: var(--gradient-warm);
+            color: var(--white);
+            padding: 1.5rem 2rem;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .chat-messages {
+            padding: 2rem;
+            height: 400px;
+            overflow-y: auto;
+            background: var(--cream);
+        }
+
+        .chat-message {
+            margin-bottom: 1.5rem;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .chat-message.system {
+            background: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--mint);
+            font-size: 0.95rem;
+            color: var(--charcoal);
+        }
+
+        .chat-message.user {
+            background: var(--coral);
+            color: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            max-width: 70%;
+            margin-left: auto;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 1.5rem 2rem;
+            border-top: 1px solid var(--cream);
+        }
+
+        .chat-input input {
+            flex: 1;
+            border: 2px solid var(--cream);
+            border-radius: 12px;
+            padding: 0.8rem 1.2rem;
+            font-size: 1rem;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        .chat-input input:focus {
+            border-color: var(--coral);
+        }
+
+        .chat-input button {
+            background: var(--coral);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            padding: 0.8rem 1.5rem;
+            margin-left: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .chat-input button:hover {
+            background: var(--charcoal);
+        }
+
+        /* Learning Groups */
+        .groups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .group-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 30px var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .group-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .group-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .group-meta {
+            color: var(--soft-gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .group-card p {
+            color: var(--charcoal);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .group-btn {
+            background: var(--mint);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 1rem;
+        }
+
+        .group-btn:hover {
+            background: var(--charcoal);
+        }
+
+        .group-btn.secondary {
+            background: transparent;
+            border: 2px solid var(--mint);
+            color: var(--mint);
+        }
+
+        .group-btn.secondary:hover {
+            background: var(--mint);
+            color: var(--white);
+        }
+
+        /* Builder Path Form */
+        .builder-form {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 700px;
+            margin: 2rem auto;
+            box-shadow: 0 10px 40px var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--charcoal);
+            font-size: 1.05rem;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--cream);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'DM Sans', sans-serif;
+            transition: border 0.3s;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--mint);
+        }
+
+        .form-submit {
+            background: var(--gradient-cool);
+            color: var(--white);
+            border: none;
+            padding: 1.2rem 3rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Teammate Recommendations */
+        .teammates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .teammate-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 30px var(--shadow);
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .teammate-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .compatibility-badge {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--gradient-cool);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .teammate-name {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .teammate-role {
+            color: var(--coral);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .match-reason {
+            background: var(--cream);
+            padding: 1.2rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .invite-btn {
+            background: var(--mint);
+            color: var(--white);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        .invite-btn:hover {
+            background: var(--charcoal);
+        }
+
+        /* Badge */
+        .women-only-badge {
+            position: fixed;
+            top: 100px;
+            right: 2rem;
+            background: var(--coral);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+            animation: slideInRight 0.5s ease;
+            z-index: 999;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(150%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .back-btn {
+            background: transparent;
+            border: 2px solid var(--charcoal);
+            color: var(--charcoal);
+            padding: 0.8rem 1.8rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--charcoal);
+            color: var(--white);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .path-cards,
+            .learner-options,
+            .groups-grid,
+            .teammates-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+
+            .welcome-header h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        // Dummy profile data
+        const profiles = [
+            {
+                id: 1,
+                name: "Maya Chen",
+                tagline: "Building my design skills one project at a time",
+                offers: ["Python", "Data Analysis"],
+                wants: ["UI/UX Design", "Figma"],
+                workStyle: "Async, structured sessions",
+                availability: "Weekday evenings"
+            },
+            {
+                id: 2,
+                name: "Jordan Lee",
+                tagline: "Code enthusiast learning to think like a designer",
+                offers: ["React", "Frontend Dev"],
+                wants: ["Python", "Machine Learning"],
+                workStyle: "Collaborative, real-time",
+                availability: "Flexible schedule"
+            },
+            {
+                id: 3,
+                name: "Priya Sharma",
+                tagline: "Turning ideas into beautiful experiences",
+                offers: ["UI/UX Design", "Branding"],
+                wants: ["Backend Development", "APIs"],
+                workStyle: "Mixed async & sync",
+                availability: "Weekends + evenings"
+            },
+            {
+                id: 4,
+                name: "Alex Rivera",
+                tagline: "Learning in public, building in private",
+                offers: ["Backend Development", "Node.js"],
+                wants: ["React", "Frontend"],
+                workStyle: "Focused deep work",
+                availability: "Morning sessions"
+            },
+            {
+                id: 5,
+                name: "Sam Taylor",
+                tagline: "Creative coder with a passion for clean design",
+                offers: ["JavaScript", "Web Dev"],
+                wants: ["Data Science", "Analytics"],
+                workStyle: "Pair programming",
+                availability: "Weekend marathons"
+            }
+        ];
+
+        const learningGroups = [
+            {
+                id: 1,
+                name: "Web Dev Circle",
+                members: 5,
+                commitment: "High",
+                description: "Learn together, build projects, and stay consistent with weekly check-ins."
+            },
+            {
+                id: 2,
+                name: "AI/ML Study Group",
+                members: 8,
+                commitment: "Medium",
+                description: "Explore machine learning concepts through shared resources and discussions."
+            },
+            {
+                id: 3,
+                name: "Design Thinkers",
+                members: 6,
+                commitment: "High",
+                description: "Practice UX research, critique designs, and grow design intuition together."
+            }
+        ];
+
+        const teammates = [
+            {
+                id: 1,
+                name: "Riley Kim",
+                role: "Backend Developer",
+                compatibility: 92,
+                reason: "Matched because of shared commitment level (high) and complementary skills in backend + frontend. Riley prefers structured workflows, just like you."
+            },
+            {
+                id: 2,
+                name: "Casey Morgan",
+                role: "Product Designer",
+                compatibility: 88,
+                reason: "Great fit for your project vision. Both value user-centered design and enjoy rapid prototyping."
+            },
+            {
+                id: 3,
+                name: "Jordan Davis",
+                role: "Full-Stack Engineer",
+                compatibility: 85,
+                reason: "Similar energy levels and working hours. Jordan's technical versatility complements your specialization."
+            }
+        ];
+
+        function App() {
+            const [view, setView] = useState('dashboard');
+            const [womenOnlyMode, setWomenOnlyMode] = useState(false);
+            const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
+            const [swipeDirection, setSwipeDirection] = useState(null);
+            const [showMatchModal, setShowMatchModal] = useState(false);
+            const [matchedProfile, setMatchedProfile] = useState(null);
+            const [showChat, setShowChat] = useState(false);
+            const [chatMessages, setChatMessages] = useState([]);
+            const [formData, setFormData] = useState({});
+
+            const handleSwipe = (direction) => {
+                setSwipeDirection(direction);
+                
+                if (direction === 'right') {
+                    setMatchedProfile(profiles[currentProfileIndex]);
+                    setTimeout(() => {
+                        setShowMatchModal(true);
+                    }, 300);
+                }
+
+                setTimeout(() => {
+                    if (currentProfileIndex < profiles.length - 1) {
+                        setCurrentProfileIndex(currentProfileIndex + 1);
+                        setSwipeDirection(null);
+                    } else {
+                        setView('learner');
+                    }
+                }, 500);
+            };
+
+            const handleMatch = () => {
+                setShowMatchModal(false);
+                setShowChat(true);
+                setChatMessages([
+                    `You've been matched based on skills, learning goals, and working style. Start by aligning expectations and timelines.`
+                ]);
+            };
+
+            const renderNavbar = () => (
+                <nav className="navbar">
+                    <div className="logo-section">
+                        <div className="logo">TeamMosaic</div>
+                        <div className="tagline">Where people don't just connect — they fit.</div>
+                    </div>
+                    <ul className="nav-links">
+                        <li><a href="#" onClick={() => setView('dashboard')}>Dashboard</a></li>
+                        <li><a href="#">Matches</a></li>
+                        <li><a href="#">Workspace</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                    <div className="nav-right">
+                        <div className="toggle-container">
+                            <span className="toggle-label">Women-Only Layer</span>
+                            <div 
+                                className={`toggle-switch ${womenOnlyMode ? 'active' : ''}`}
+                                onClick={() => setWomenOnlyMode(!womenOnlyMode)}
+                            >
+                                <div className="toggle-slider"></div>
+                            </div>
+                            <div className="tooltip">
+                                An optional safety layer for focused and comfortable collaboration.
+                            </div>
+                        </div>
+                        <div className="profile-avatar">JD</div>
+                    </div>
+                </nav>
+            );
+
+            const renderDashboard = () => (
+                <div className="main-container">
+                    <div className="welcome-header">
+                        <h1>Choose Your Path</h1>
+                        <p>Whether you're learning or building, find the right people to grow with.</p>
+                    </div>
+                    <div className="path-cards">
+                        <div className="path-card" onClick={() => setView('learner')}>
+                            <div className="path-icon">📚</div>
+                            <h2>Learn Better, Together</h2>
+                            <p>Find people who learn at your pace. Exchange skills, grow together, and stay motivated with peers who share your goals.</p>
+                            <button className="path-btn">Enter Learner Path</button>
+                        </div>
+                        <div className="path-card builder" onClick={() => setView('builder')}>
+                            <div className="path-icon">🚀</div>
+                            <h2>Build with the Right Team</h2>
+                            <p>Turn ideas into reality with teammates who match your energy, commitment, and working style.</p>
+                            <button className="path-btn">Enter Builder Path</button>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const renderLearnerPath = () => (
+                <div className="main-container">
+                    <button className="back-btn" onClick={() => setView('dashboard')}>← Back to Dashboard</button>
+                    <div className="section-header">
+                        <h2>Learner Path</h2>
+                        <p>Connect with peers for skill exchange and collaborative learning.</p>
+                    </div>
+                    <div className="learner-options">
+                        <div className="option-card" onClick={() => setView('skill-swap')}>
+                            <h3>Skill Swap</h3>
+                            <p>Swipe through profiles and exchange skills with people who complement your learning journey.</p>
+                            <button className="option-btn">Start Swiping</button>
+                        </div>
+                        <div className="option-card" onClick={() => setView('peer-groups')}>
+                            <h3>Peer Learning Circles</h3>
+                            <p>Join small learning groups with shared interests, aligned goals, and mutual accountability.</p>
+                            <button className="option-btn">Explore Groups</button>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            const renderSkillSwap = () => {
+                const currentProfile = profiles[currentProfileIndex];
+                if (!currentProfile) {
+                    return (
+                        <div className="main-container">
+                            <button className="back-btn" onClick={() => setView('learner')}>← Back</button>
+                            <div className="section-header">
+                                <h2>No more profiles!</h2>
+                                <p>Check back later for new matches.</p>
+                            </div>
+                        </div>
+                    );
+                }
+
+                return (
+                    <div className="main-container">
+                        <button className="back-btn" onClick={() => setView('learner')}>← Back</button>
+                        <div className="section-header">
+                            <h2>Skill Swap</h2>
+                            <p>Find your perfect learning partner.</p>
+                        </div>
+                        <div className="swipe-container">
+                            <div className={`swipe-card ${swipeDirection === 'left' ? 'swipe-left' : ''} ${swipeDirection === 'right' ? 'swipe-right' : ''}`}>
+                                <div className="profile-header">
+                                    <div className="profile-name">{currentProfile.name}</div>
+                                    <div className="profile-tagline">"{currentProfile.tagline}"</div>
+                                </div>
+                                <div className="profile-section">
+                                    <h4>Can Teach</h4>
+                                    <div className="skill-tags">
+                                        {currentProfile.offers.map((skill, idx) => (
+                                            <span key={idx} className="skill-tag">{skill}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="profile-section">
+                                    <h4>Wants to Learn</h4>
+                                    <div className="skill-tags">
+                                        {currentProfile.wants.map((skill, idx) => (
+                                            <span key={idx} className="skill-tag">{skill}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="profile-section">
+                                    <h4>Working Style</h4>
+                                    <div className="profile-detail">{currentProfile.workStyle}</div>
+                                </div>
+                                <div className="profile-section">
+                                    <h4>Availability</h4>
+                                    <div className="profile-detail">{currentProfile.availability}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="swipe-buttons">
+                            <button className="swipe-btn pass" onClick={() => handleSwipe('left')}>❌</button>
+                            <button className="swipe-btn match" onClick={() => handleSwipe('right')}>❤️</button>
+                        </div>
+                    </div>
+                );
+            };
+
+            const renderPeerGroups = () => (
+                <div className="main-container">
+                    <button className="back-btn" onClick={() => setView('learner')}>← Back</button>
+                    <div className="section-header">
+                        <h2>Peer Learning Circles</h2>
+                        <p>Learn together with small, committed groups.</p>
+                    </div>
+                    <div className="groups-grid">
+                        {learningGroups.map(group => (
+                            <div key={group.id} className="group-card">
+                                <h3>{group.name}</h3>
+                                <div className="group-meta">
+                                    {group.members} learners · {group.commitment} commitment
+                                </div>
+                                <p>{group.description}</p>
+                                <button className="group-btn">Join Group</button>
+                                <button className="group-btn secondary">Learn More</button>
+                            </div>
+                        ))}
+                    </div>
+                    <div style={{textAlign: 'center', marginTop: '3rem'}}>
+                        <button className="option-btn">+ Create New Group</button>
+                    </div>
+                </div>
+            );
+
+            const renderBuilderPath = () => {
+                if (formData.submitted) {
+                    return (
+                        <div className="main-container">
+                            <button className="back-btn" onClick={() => {
+                                setView('dashboard');
+                                setFormData({});
+                            }}>← Back to Dashboard</button>
+                            <div className="section-header">
+                                <h2>Your Recommended Teammates</h2>
+                                <p>Based on your preferences and working style.</p>
+                            </div>
+                            <div className="teammates-grid">
+                                {teammates.map(teammate => (
+                                    <div key={teammate.id} className="teammate-card">
+                                        <div className="compatibility-badge">{teammate.compatibility}%</div>
+                                        <div className="teammate-name">{teammate.name}</div>
+                                        <div className="teammate-role">{teammate.role}</div>
+                                        <div className="match-reason">{teammate.reason}</div>
+                                        <button className="invite-btn">Invite to Project</button>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    );
+                }
+
+                return (
+                    <div className="main-container">
+                        <button className="back-btn" onClick={() => setView('dashboard')}>← Back to Dashboard</button>
+                        <div className="section-header">
+                            <h2>Builder Path</h2>
+                            <p>Tell us about your project and we'll find the perfect teammates.</p>
+                        </div>
+                        <div className="builder-form">
+                            <div className="form-group">
+                                <label>Preferred Role</label>
+                                <select>
+                                    <option>Frontend Developer</option>
+                                    <option>Backend Developer</option>
+                                    <option>Full-Stack Developer</option>
+                                    <option>Designer</option>
+                                    <option>Product Manager</option>
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label>Project Interest</label>
+                                <select>
+                                    <option>Web Application</option>
+                                    <option>Mobile App</option>
+                                    <option>AI/ML Project</option>
+                                    <option>Design System</option>
+                                    <option>Open Source</option>
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label>Working Style</label>
+                                <select>
+                                    <option>High energy, fast-paced</option>
+                                    <option>Steady and consistent</option>
+                                    <option>Flexible and adaptive</option>
+                                    <option>Deep focus sessions</option>
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label>Commitment Level</label>
+                                <select>
+                                    <option>Full-time (30+ hrs/week)</option>
+                                    <option>Part-time (15-30 hrs/week)</option>
+                                    <option>Casual (5-15 hrs/week)</option>
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label>Team Size Preference</label>
+                                <select>
+                                    <option>Solo with mentor</option>
+                                    <option>2-3 people</option>
+                                    <option>4-6 people</option>
+                                    <option>Larger team (7+)</option>
+                                </select>
+                            </div>
+                            <button 
+                                className="form-submit"
+                                onClick={() => setFormData({submitted: true})}
+                            >
+                                Find My Team
+                            </button>
+                        </div>
+                    </div>
+                );
+            };
+
+            const renderChat = () => (
+                <div className="main-container">
+                    <button className="back-btn" onClick={() => setShowChat(false)}>← Back</button>
+                    <div className="chat-container">
+                        <div className="chat-header">
+                            Skill Swap: {matchedProfile?.offers[0]} × {matchedProfile?.wants[0]}
+                        </div>
+                        <div className="chat-messages">
+                            {chatMessages.map((msg, idx) => (
+                                <div key={idx} className="chat-message system">
+                                    {msg}
+                                </div>
+                            ))}
+                        </div>
+                        <div className="chat-input">
+                            <input type="text" placeholder="Type your message..." />
+                            <button>Send</button>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            return (
+                <>
+                    {renderNavbar()}
+                    {womenOnlyMode && (
+                        <div className="women-only-badge">
+                            🛡️ Women-Only Mode Active
+                        </div>
+                    )}
+                    {showChat ? renderChat() :
+                     view === 'dashboard' ? renderDashboard() :
+                     view === 'learner' ? renderLearnerPath() :
+                     view === 'skill-swap' ? renderSkillSwap() :
+                     view === 'peer-groups' ? renderPeerGroups() :
+                     view === 'builder' ? renderBuilderPath() :
+                     renderDashboard()}
+                    
+                    {showMatchModal && matchedProfile && (
+                        <div className="modal-overlay" onClick={() => setShowMatchModal(false)}>
+                            <div className="modal" onClick={e => e.stopPropagation()}>
+                                <h2>It's a Match! 🎉</h2>
+                                <p>You both want to learn and grow together.</p>
+                                <button className="modal-btn" onClick={handleMatch}>
+                                    Start Chatting
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
