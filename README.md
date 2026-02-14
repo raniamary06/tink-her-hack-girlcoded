@@ -2,28 +2,28 @@
   <img src="./img.png" alt="Project Banner" width="100%">
 </p>
 
-# [Project Name] 🎯
-Hello World
+# [Team Mosaic] 🎯
+
 
 ## Basic Details
 
-### Team Name: [Name]
+### Team Name: [girlcoded]
 
 ### Team Members
-- Member 1: [Name] - [College]
-- Member 2: [Name] - [College]
+- Member 1: [M R Devika] - [Government Engineering College Thrissur]
+- Member 2: [Rania Mary Soby] - [Government Engineering College Thrissur]
 
 ### Hosted Project Link
-[mention your project hosted link here]
+[https://tink-her-hack-girlcoded-peach.vercel.app/]
 
 ### Project Description
-[2-3 lines about what your project does]
+[finding a teammate who actually pulls their weight is a gamble. teammosaic fixes that. instead of random pairings, we match you with people who match your energy, working style, and schedule. it’s about finding the "missing piece" to your puzzle so projects actually get finished. plus, with a safety-first women-only layer, you can collaborate with total peace of mind.]
 
 ### The Problem statement
-[What problem are you solving?]
+[teams fail not because of lack of skills, but because of mismatched working styles and communication preferences. women often adapt silently in teams, leading to stress and burnout. Existing team formation tools focus only on skills and roles, not on how people actually work together. this creates unhealthy and inefficient team dynamics]
 
 ### The Solution
-[How are you solving it?]
+[we propose a platform that works like a “tinder for developers,” where instead of swiping based on looks or skills, users are matched based on their working style, communication preferences, stress behavior, and daily routines. developers answer a few quick questions, and the platform matches them into compatible teams that are more likely to collaborate comfortably, reduce stress, and work efficiently together.]
 
 ---
 
@@ -32,25 +32,29 @@ Hello World
 ### Technologies/Components Used
 
 **For Software:**
-- Languages used: [e.g., JavaScript, Python, Java]
-- Frameworks used: [e.g., React, Django, Spring Boot]
-- Libraries used: [e.g., axios, pandas, JUnit]
-- Tools used: [e.g., VS Code, Git, Docker]
+Languages used: [HTML5, CSS3, JavaScript (ES6), JSX]  
+Frameworks used: [React.js (CDN-based)]  
+Libraries used: [React DOM, Babel Standalone, Google Fonts]  
+Tools used: [VS Code, Live Server, Git, GitHub, Web Browser]
 
 **For Hardware:**
-- Main components: [List main components]
-- Specifications: [Technical specifications]
-- Tools required: [List tools needed]
+- Main components: [NA]
+- Specifications: [NA]
+- Tools required: [NA]
 
 ---
 
 ## Features
 
 List the key features of your project:
-- Feature 1: [Description]
-- Feature 2: [Description]
-- Feature 3: [Description]
-- Feature 4: [Description]
+- Feature 1: [tinder-style matching for developers
+users swipe or match profiles based on working style compatibility instead of looks or technical skills.]
+- Feature 2: [women-centric design approach
+designed to support safe communication preferences and inclusive collaboration, especially in women-led teams.]
+- Feature 3: [instant team formation
+automatically forms teams once compatible matches are found, saving time during hackathons or group projects.]
+- Feature 4: ["fit over reach” philosophy
+matches people by compatibility, not popularity emphasizes working style & commitment human-centered design approach]
 
 ---
 
@@ -84,14 +88,16 @@ List the key features of your project:
 
 #### Screenshots (Add at least 3)
 
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
+<img width="1895" height="904" alt="image" src="https://github.com/user-attachments/assets/497612f4-38d4-44f0-ae6d-00d29e6f38c3" />
+*A clean, minimalist login interface featuring a soft peach background. It includes email and password fields, a vibrant orange "Log In" button, and an option to create a new account.*
 
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
+![<img width="1919" height="913" alt="image" src="https://github.com/user-attachments/assets/e2717f0a-617e-4140-b10e-6b67023810dd" />
+User Dashboard
+The main hub of TeamMosaic, displaying a "Choose Your Path" interface. Users can enter the "Learner Path" for skill exchange or the "Builder Path" to assemble a project team.
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+![<img width="1895" height="902" alt="image" src="https://github.com/user-attachments/assets/14ee79bf-7f6f-4f41-b364-f212e56765fd" />
+] Work Style Preferences
+A detailed profile completion screen focusing on collaboration habits. Users select their communication style, team vibe, and preferred workflow, such as real-time pair work or asynchronous collaboration, to improve matching.*
 
 #### Diagrams
 
