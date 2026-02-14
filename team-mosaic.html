@@ -7,7 +7,7 @@
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Aberdeen&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -28,6 +28,19 @@
             --gradient-cool: linear-gradient(135deg, #4ECDC4 0%, #556270 100%);
         }
 
+        body.women-only-theme {
+            --coral: #E91E8C;
+            --peach: #FF69B4;
+            --mint: #FF1493;
+            --cream: #FFF0F5;
+            --charcoal: #2C3E50;
+            --soft-gray: #95A5A6;
+            --white: #FFFFFF;
+            --shadow: rgba(233, 30, 140, 0.12);
+            --gradient-warm: linear-gradient(135deg, #E91E8C 0%, #FF69B4 100%);
+            --gradient-cool: linear-gradient(135deg, #FF1493 0%, #E91E8C 100%);
+        }
+
         body {
             font-family: 'DM Sans', sans-serif;
             background: var(--cream);
@@ -36,7 +49,7 @@
         }
 
         h1, h2, h3, h4 {
-            font-family: 'Fraunces', serif;
+            font-family: 'Aberdeen', serif;
             font-weight: 700;
         }
 
@@ -247,7 +260,7 @@
 
         .logout-item:hover {
             background: rgba(255, 107, 107, 0.1);
-        }
+        
             font-weight: 700;
             cursor: pointer;
             transition: transform 0.3s;
@@ -1266,6 +1279,15 @@
                 window.location.href = 'team-mosaic-auth.html';
                 return null;
             }
+
+            // Apply pink theme when women-only mode is active
+            React.useEffect(() => {
+                if (womenOnlyMode && userData?.gender === 'Female') {
+                    document.body.classList.add('women-only-theme');
+                } else {
+                    document.body.classList.remove('women-only-theme');
+                }
+            }, [womenOnlyMode, userData]);
 
             const [view, setView] = useState('dashboard');
             const [womenOnlyMode, setWomenOnlyMode] = useState(userData?.womenOnlyMode || false);

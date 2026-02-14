@@ -8,6 +8,41 @@
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700;800&display=swap" rel="stylesheet">
+    .circular-text {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  animation: spin linear infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.circular-text span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: 0 0;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  white-space: pre;
+}
+
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
     <style>
         * {
             margin: 0;
@@ -290,6 +325,29 @@
         .path-icon {
             font-size: 3rem;
             margin-bottom: 1.5rem;
+            width: 80px;
+            height: 80px;
+            margin-left: auto;
+            margin-right: auto;
+            background: var(--gradient-warm);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .path-card.builder .path-icon {
+            background: var(--gradient-cool);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         .path-card h2 {
@@ -929,6 +987,45 @@
 
     <script type="text/babel">
         const { useState } = React;
+        function CircularText({
+  text,
+  spinDuration = 12,
+  onHover,
+  className = ""
+}) {
+  const letters = text.split("");
+
+  return (
+    <div
+      className={`circular-text ${className}`}
+      style={{ animationDuration: `${spinDuration}s` }}
+      onMouseEnter={(e) => {
+        if (onHover === "speedUp") {
+          e.currentTarget.style.animationDuration = "3s";
+        }
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.animationDuration = `${spinDuration}s`;
+      }}
+    >
+      {letters.map((char, index) => (
+        <span
+          key={index}
+          style={{
+            transform: `
+              rotate(${(360 / letters.length) * index}deg)
+              translateX(45px)
+            `
+          }}
+        >
+          {char}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+
 
         // Dummy profile data
         const profiles = [
@@ -1069,7 +1166,12 @@
             const renderNavbar = () => (
                 <nav className="navbar">
                     <div className="logo-section">
-                        <div className="logo">TeamMosaic</div>
+                        <CircularText
+  text="team*mosaic*"
+  spinDuration={13}
+  onHover="speedUp"
+/>
+
                         <div className="tagline">Where people don't just connect — they fit.</div>
                     </div>
                     <ul className="nav-links">
@@ -1104,13 +1206,30 @@
                     </div>
                     <div className="path-cards">
                         <div className="path-card" onClick={() => setView('learner')}>
-                            <div className="path-icon">📚</div>
+                            <div className="path-icon">
+                                <svg width="40" height="40" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="30" cy="20" r="8" fill="white" opacity="0.8"/>
+                                    <path d="M15 35 Q15 30 30 30 Q45 30 45 35" stroke="white" strokeWidth="2" fill="none" opacity="0.8"/>
+                                    <circle cx="20" cy="45" r="4" fill="white" opacity="0.6"/>
+                                    <circle cx="30" cy="48" r="3" fill="white" opacity="0.6"/>
+                                    <circle cx="40" cy="45" r="4" fill="white" opacity="0.6"/>
+                                    <path d="M12 50 L48 50" stroke="white" strokeWidth="2" opacity="0.5"/>
+                                </svg>
+                            </div>
                             <h2>Learn Better, Together</h2>
                             <p>Find people who learn at your pace. Exchange skills, grow together, and stay motivated with peers who share your goals.</p>
                             <button className="path-btn">Enter Learner Path</button>
                         </div>
                         <div className="path-card builder" onClick={() => setView('builder')}>
-                            <div className="path-icon">🚀</div>
+                            <div className="path-icon">
+                                <svg width="40" height="40" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="30" cy="15" r="6" fill="white" opacity="0.8"/>
+                                    <path d="M22 25 L30 35 L38 25 Z" fill="white" opacity="0.7"/>
+                                    <rect x="26" y="35" width="8" height="15" rx="2" fill="white" opacity="0.6"/>
+                                    <path d="M20 48 L15 55 M40 48 L45 55" stroke="white" strokeWidth="2" opacity="0.5"/>
+                                    <circle cx="30" cy="28" r="2" fill="white" opacity="0.4"/>
+                                </svg>
+                            </div>
                             <h2>Build with the Right Team</h2>
                             <p>Turn ideas into reality with teammates who match your energy, commitment, and working style.</p>
                             <button className="path-btn">Enter Builder Path</button>
