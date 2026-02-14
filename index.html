@@ -3,46 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeamMosaic - Where People Don't Just Connect — They Fit</title>
+    <title>TeamMosaic - Join Us</title>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700;800&display=swap" rel="stylesheet">
-    .circular-text {
-  position: relative;
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  animation: spin linear infinite;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.circular-text span {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform-origin: 0 0;
-  font-size: 0.6rem;
-  font-weight: 800;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--charcoal);
-  white-space: pre;
-}
-
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Aberdeen&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -68,111 +33,472 @@
             background: var(--cream);
             color: var(--charcoal);
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
         h1, h2, h3, h4 {
-            font-family: 'Fraunces', serif;
+            font-family: 'Aberdeen', serif;
             font-weight: 700;
         }
 
-        /* Navigation */
-        .navbar {
-            background: var(--white);
-            padding: 1.2rem 3rem;
+        /* Auth Container */
+        .auth-container {
+            min-height: 100vh;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 20px var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            animation: slideDown 0.6s ease;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
         }
 
-        @keyframes slideDown {
+        /* Decorative Background Elements */
+        .bg-decoration {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .bg-decoration.circle1 {
+            width: 300px;
+            height: 300px;
+            background: var(--coral);
+            top: -100px;
+            left: -100px;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .bg-decoration.circle2 {
+            width: 400px;
+            height: 400px;
+            background: var(--mint);
+            bottom: -150px;
+            right: -150px;
+            animation: float 25s ease-in-out infinite reverse;
+        }
+
+        .bg-decoration.circle3 {
+            width: 200px;
+            height: 200px;
+            background: var(--peach);
+            top: 50%;
+            right: 10%;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-30px) scale(1.05);
+            }
+        }
+
+        /* Auth Card */
+        .auth-card {
+            background: var(--white);
+            border-radius: 32px;
+            padding: 4rem;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.12);
+            position: relative;
+            z-index: 1;
+            animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes slideUp {
             from {
-                transform: translateY(-100%);
                 opacity: 0;
+                transform: translateY(40px);
             }
             to {
-                transform: translateY(0);
                 opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        .logo-section {
-            display: flex;
-            flex-direction: column;
+        .auth-header {
+            text-align: center;
+            margin-bottom: 3rem;
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-size: 2.5rem;
             font-family: 'Fraunces', serif;
             font-weight: 800;
             background: var(--gradient-warm);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            margin-bottom: 0.5rem;
         }
 
         .tagline {
-            font-size: 0.8rem;
+            font-size: 1rem;
             color: var(--soft-gray);
             font-style: italic;
-            margin-top: -0.2rem;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-        }
-
-        .nav-links a {
+        .welcome-text {
+            text-align: center;
             color: var(--charcoal);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+            animation: fadeIn 0.8s ease 0.3s both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.8rem;
+            animation: fadeIn 0.6s ease both;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            color: var(--charcoal);
+            font-size: 0.95rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 2px solid var(--cream);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s;
+            background: var(--cream);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--coral);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: var(--soft-gray);
+        }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 1.2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--gradient-warm);
+            color: var(--white);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--coral);
+            border: 2px solid var(--coral);
+            margin-top: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background: var(--coral);
+            color: var(--white);
+        }
+
+        .switch-text {
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--soft-gray);
+            font-size: 0.95rem;
+        }
+
+        .switch-link {
+            color: var(--coral);
+            font-weight: 600;
+            cursor: pointer;
             text-decoration: none;
-            font-weight: 500;
-            position: relative;
             transition: color 0.3s;
         }
 
-        .nav-links a:hover {
-            color: var(--coral);
+        .switch-link:hover {
+            color: var(--peach);
+            text-decoration: underline;
         }
 
-        .nav-links a::after {
-            content: '';
+        /* Onboarding Container */
+        .onboarding-container {
+            min-height: 100vh;
+            padding: 3rem 2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .onboarding-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: slideUp 0.6s ease;
+        }
+
+        .onboarding-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.8rem;
+            color: var(--charcoal);
+        }
+
+        .onboarding-header p {
+            font-size: 1.15rem;
+            color: var(--soft-gray);
+        }
+
+        /* Progress Indicator */
+        .progress-container {
+            margin-bottom: 3rem;
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .progress-line {
             position: absolute;
-            bottom: -5px;
+            top: 50%;
             left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--coral);
-            transition: width 0.3s;
+            right: 0;
+            height: 3px;
+            background: var(--cream);
+            z-index: 0;
+            transform: translateY(-50%);
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
+        .progress-line-active {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 3px;
+            background: var(--gradient-warm);
+            z-index: 1;
+            transform: translateY(-50%);
+            transition: width 0.5s ease;
         }
 
-        .nav-right {
+        .progress-step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--cream);
+            border: 3px solid var(--cream);
             display: flex;
             align-items: center;
-            gap: 1.5rem;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--soft-gray);
+            position: relative;
+            z-index: 2;
+            transition: all 0.4s;
+        }
+
+        .progress-step.active {
+            background: var(--white);
+            border-color: var(--coral);
+            color: var(--coral);
+            transform: scale(1.2);
+        }
+
+        .progress-step.completed {
+            background: var(--coral);
+            border-color: var(--coral);
+            color: var(--white);
+        }
+
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--soft-gray);
+            font-weight: 500;
+        }
+
+        .progress-label.active {
+            color: var(--coral);
+            font-weight: 700;
+        }
+
+        /* Onboarding Card */
+        .onboarding-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 15px 50px var(--shadow);
+            animation: fadeIn 0.6s ease;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--charcoal);
+        }
+
+        .section-subtitle {
+            color: var(--soft-gray);
+            margin-bottom: 2.5rem;
+            font-size: 1rem;
+        }
+
+        /* Radio/Checkbox Options */
+        .options-grid {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .option-card {
+            padding: 1.2rem 1.5rem;
+            border: 2px solid var(--cream);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--cream);
+        }
+
+        .option-card:hover {
+            border-color: var(--coral);
+            background: var(--white);
+            transform: translateX(5px);
+        }
+
+        .option-card.selected {
+            border-color: var(--coral);
+            background: rgba(255, 107, 107, 0.05);
+        }
+
+        .option-radio {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--soft-gray);
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .option-card.selected .option-radio {
+            border-color: var(--coral);
+        }
+
+        .option-card.selected .option-radio::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--coral);
+        }
+
+        .option-checkbox {
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            border: 2px solid var(--soft-gray);
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .option-card.selected .option-checkbox {
+            border-color: var(--coral);
+            background: var(--coral);
+        }
+
+        .option-card.selected .option-checkbox::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--white);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .option-label {
+            font-weight: 500;
+            color: var(--charcoal);
+            font-size: 1rem;
         }
 
         /* Toggle Switch */
-        .toggle-container {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            position: relative;
+        .toggle-option {
+            background: rgba(78, 205, 196, 0.1);
+            border: 2px solid var(--mint);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            animation: slideDown 0.4s ease;
         }
 
-        .toggle-label {
-            font-size: 0.85rem;
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .toggle-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+        }
+
+        .toggle-title {
+            font-weight: 600;
             color: var(--charcoal);
-            font-weight: 500;
+            font-size: 1.05rem;
         }
 
         .toggle-switch {
@@ -186,7 +512,7 @@
         }
 
         .toggle-switch.active {
-            background: var(--coral);
+            background: var(--mint);
         }
 
         .toggle-slider {
@@ -198,786 +524,87 @@
             background: var(--white);
             border-radius: 50%;
             transition: transform 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .toggle-switch.active .toggle-slider {
             transform: translateX(24px);
         }
 
-        .tooltip {
-            position: absolute;
-            bottom: -60px;
-            right: 0;
-            background: var(--charcoal);
-            color: var(--white);
-            padding: 0.6rem 1rem;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            width: 220px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-            z-index: 100;
-        }
-
-        .toggle-container:hover .tooltip {
-            opacity: 1;
-        }
-
-        .profile-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--gradient-warm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-weight: 700;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .profile-avatar:hover {
-            transform: scale(1.1);
-        }
-
-        /* Main Dashboard */
-        .main-container {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-            animation: fadeIn 0.8s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .welcome-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .welcome-header h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            color: var(--charcoal);
-            animation: fadeIn 0.8s ease 0.2s both;
-        }
-
-        .welcome-header p {
-            font-size: 1.2rem;
+        .toggle-helper {
             color: var(--soft-gray);
-            animation: fadeIn 0.8s ease 0.4s both;
+            font-size: 0.9rem;
+            line-height: 1.5;
         }
 
-        .path-cards {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2.5rem;
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
             margin-top: 3rem;
         }
 
-        .path-card {
-            background: var(--white);
-            border-radius: 24px;
-            padding: 3rem;
-            box-shadow: 0 10px 40px var(--shadow);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .path-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 6px;
-            background: var(--gradient-warm);
-            transform: scaleX(0);
-            transition: transform 0.4s;
-        }
-
-        .path-card.builder::before {
-            background: var(--gradient-cool);
-        }
-
-        .path-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-        }
-
-        .path-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .path-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            width: 80px;
-            height: 80px;
-            margin-left: auto;
-            margin-right: auto;
-            background: var(--gradient-warm);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .path-card.builder .path-icon {
-            background: var(--gradient-cool);
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        .path-card h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--charcoal);
-        }
-
-        .path-card p {
-            color: var(--soft-gray);
-            line-height: 1.7;
-            margin-bottom: 2rem;
-            font-size: 1.05rem;
-        }
-
-        .path-btn {
-            background: var(--gradient-warm);
-            color: var(--white);
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: inline-block;
-        }
-
-        .path-card.builder .path-btn {
-            background: var(--gradient-cool);
-        }
-
-        .path-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Learner Path View */
-        .section-header {
-            margin-bottom: 2rem;
-            animation: fadeIn 0.6s ease;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .section-header p {
-            color: var(--soft-gray);
-            font-size: 1.1rem;
-        }
-
-        .learner-options {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .option-card {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: 0 8px 30px var(--shadow);
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 3px solid transparent;
-        }
-
-        .option-card:hover {
-            border-color: var(--coral);
-            transform: translateY(-5px);
-        }
-
-        .option-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: var(--charcoal);
-        }
-
-        .option-card p {
-            color: var(--soft-gray);
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .option-btn {
-            background: var(--coral);
-            color: var(--white);
-            border: none;
-            padding: 0.9rem 1.8rem;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .option-btn:hover {
-            background: var(--charcoal);
-        }
-
-        /* Swipe Cards */
-        .swipe-container {
-            max-width: 500px;
-            margin: 3rem auto;
-            position: relative;
-            height: 600px;
-        }
-
-        .swipe-card {
-            position: absolute;
-            width: 100%;
-            background: var(--white);
-            border-radius: 24px;
-            padding: 3rem;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .swipe-card.swipe-left {
-            transform: translateX(-150%) rotate(-15deg);
-            opacity: 0;
-        }
-
-        .swipe-card.swipe-right {
-            transform: translateX(150%) rotate(15deg);
-            opacity: 0;
-        }
-
-        .profile-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .profile-name {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .profile-tagline {
-            color: var(--soft-gray);
-            font-style: italic;
-            font-size: 1rem;
-        }
-
-        .profile-section {
-            margin: 1.5rem 0;
-        }
-
-        .profile-section h4 {
-            font-size: 1rem;
-            color: var(--coral);
-            margin-bottom: 0.8rem;
-            text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-        }
-
-        .skill-tag {
-            background: var(--cream);
-            color: var(--charcoal);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .profile-detail {
-            color: var(--charcoal);
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
-        }
-
-        .swipe-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .swipe-btn {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            border: none;
-            font-size: 2rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 20px var(--shadow);
-        }
-
-        .swipe-btn.pass {
-            background: var(--white);
-            color: var(--soft-gray);
-        }
-
-        .swipe-btn.match {
-            background: var(--coral);
-            color: var(--white);
-        }
-
-        .swipe-btn:hover {
-            transform: scale(1.15);
-        }
-
-        /* Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal {
-            background: var(--white);
-            border-radius: 24px;
-            padding: 3rem;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            animation: scaleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @keyframes scaleIn {
-            from {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .modal h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .modal p {
-            color: var(--soft-gray);
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-        }
-
-        .modal-btn {
-            background: var(--gradient-warm);
-            color: var(--white);
-            border: none;
-            padding: 1rem 2.5rem;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .modal-btn:hover {
-            transform: scale(1.05);
-        }
-
-        /* Chat Interface */
-        .chat-container {
-            background: var(--white);
-            border-radius: 20px;
-            max-width: 800px;
-            margin: 2rem auto;
-            box-shadow: 0 10px 40px var(--shadow);
-            overflow: hidden;
-        }
-
-        .chat-header {
-            background: var(--gradient-warm);
-            color: var(--white);
-            padding: 1.5rem 2rem;
-            font-weight: 600;
-            font-size: 1.2rem;
-        }
-
-        .chat-messages {
-            padding: 2rem;
-            height: 400px;
-            overflow-y: auto;
-            background: var(--cream);
-        }
-
-        .chat-message {
-            margin-bottom: 1.5rem;
-            animation: slideUp 0.4s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .chat-message.system {
-            background: var(--white);
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            border-left: 4px solid var(--mint);
-            font-size: 0.95rem;
-            color: var(--charcoal);
-        }
-
-        .chat-message.user {
-            background: var(--coral);
-            color: var(--white);
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            max-width: 70%;
-            margin-left: auto;
-        }
-
-        .chat-input {
-            display: flex;
-            padding: 1.5rem 2rem;
-            border-top: 1px solid var(--cream);
-        }
-
-        .chat-input input {
-            flex: 1;
-            border: 2px solid var(--cream);
-            border-radius: 12px;
-            padding: 0.8rem 1.2rem;
-            font-size: 1rem;
-            outline: none;
-            transition: border 0.3s;
-        }
-
-        .chat-input input:focus {
-            border-color: var(--coral);
-        }
-
-        .chat-input button {
-            background: var(--coral);
-            color: var(--white);
-            border: none;
-            border-radius: 12px;
-            padding: 0.8rem 1.5rem;
-            margin-left: 1rem;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .chat-input button:hover {
-            background: var(--charcoal);
-        }
-
-        /* Learning Groups */
-        .groups-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .group-card {
-            background: var(--white);
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 8px 30px var(--shadow);
-            transition: all 0.3s;
-        }
-
-        .group-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .group-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .group-meta {
-            color: var(--soft-gray);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .group-card p {
-            color: var(--charcoal);
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .group-btn {
-            background: var(--mint);
-            color: var(--white);
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-right: 1rem;
-        }
-
-        .group-btn:hover {
-            background: var(--charcoal);
-        }
-
-        .group-btn.secondary {
-            background: transparent;
-            border: 2px solid var(--mint);
-            color: var(--mint);
-        }
-
-        .group-btn.secondary:hover {
-            background: var(--mint);
-            color: var(--white);
-        }
-
-        /* Builder Path Form */
-        .builder-form {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 3rem;
-            max-width: 700px;
-            margin: 2rem auto;
-            box-shadow: 0 10px 40px var(--shadow);
-        }
-
-        .form-group {
-            margin-bottom: 2rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-            color: var(--charcoal);
-            font-size: 1.05rem;
-        }
-
-        .form-group select,
-        .form-group input {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid var(--cream);
-            border-radius: 12px;
-            font-size: 1rem;
-            font-family: 'DM Sans', sans-serif;
-            transition: border 0.3s;
-        }
-
-        .form-group select:focus,
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--mint);
-        }
-
-        .form-submit {
-            background: var(--gradient-cool);
-            color: var(--white);
-            border: none;
-            padding: 1.2rem 3rem;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s;
-        }
-
-        .form-submit:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Teammate Recommendations */
-        .teammates-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .teammate-card {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: 0 8px 30px var(--shadow);
-            position: relative;
-            transition: all 0.3s;
-        }
-
-        .teammate-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .compatibility-badge {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: var(--gradient-cool);
-            color: var(--white);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-
-        .teammate-name {
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .teammate-role {
-            color: var(--coral);
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-        }
-
-        .match-reason {
-            background: var(--cream);
-            padding: 1.2rem;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .invite-btn {
-            background: var(--mint);
-            color: var(--white);
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s;
-        }
-
-        .invite-btn:hover {
-            background: var(--charcoal);
-        }
-
-        /* Badge */
-        .women-only-badge {
-            position: fixed;
-            top: 100px;
-            right: 2rem;
-            background: var(--coral);
-            color: var(--white);
-            padding: 0.8rem 1.5rem;
-            border-radius: 12px;
-            font-weight: 600;
-            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
-            animation: slideInRight 0.5s ease;
-            z-index: 999;
-        }
-
-        @keyframes slideInRight {
-            from {
-                transform: translateX(150%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        .back-btn {
+        .btn-back {
             background: transparent;
             border: 2px solid var(--charcoal);
             color: var(--charcoal);
-            padding: 0.8rem 1.8rem;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 2rem;
-            transition: all 0.3s;
+            flex: 1;
         }
 
-        .back-btn:hover {
+        .btn-back:hover {
             background: var(--charcoal);
             color: var(--white);
+        }
+
+        .btn-next {
+            background: var(--gradient-warm);
+            color: var(--white);
+            flex: 2;
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-next:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-next:disabled:hover {
+            transform: none;
+        }
+
+        /* Multi-select Grid */
+        .multiselect-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .path-cards,
-            .learner-options,
-            .groups-grid,
-            .teammates-grid {
-                grid-template-columns: 1fr;
+            .auth-card {
+                padding: 2.5rem 2rem;
             }
 
-            .navbar {
-                padding: 1rem;
-                flex-direction: column;
-                gap: 1rem;
+            .onboarding-card {
+                padding: 2rem;
             }
 
-            .nav-links {
-                flex-direction: column;
-                gap: 0.5rem;
-                text-align: center;
+            .logo {
+                font-size: 2rem;
             }
 
-            .welcome-header h1 {
-                font-size: 2.5rem;
+            .onboarding-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .nav-buttons {
+                flex-direction: column-reverse;
             }
         }
     </style>
@@ -987,507 +614,589 @@
 
     <script type="text/babel">
         const { useState } = React;
-        function CircularText({
-  text,
-  spinDuration = 12,
-  onHover,
-  className = ""
-}) {
-  const letters = text.split("");
-
-  return (
-    <div
-      className={`circular-text ${className}`}
-      style={{ animationDuration: `${spinDuration}s` }}
-      onMouseEnter={(e) => {
-        if (onHover === "speedUp") {
-          e.currentTarget.style.animationDuration = "3s";
-        }
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.animationDuration = `${spinDuration}s`;
-      }}
-    >
-      {letters.map((char, index) => (
-        <span
-          key={index}
-          style={{
-            transform: `
-              rotate(${(360 / letters.length) * index}deg)
-              translateX(45px)
-            `
-          }}
-        >
-          {char}
-        </span>
-      ))}
-    </div>
-  );
-}
-
-
-
-        // Dummy profile data
-        const profiles = [
-            {
-                id: 1,
-                name: "Maya Chen",
-                tagline: "Building my design skills one project at a time",
-                offers: ["Python", "Data Analysis"],
-                wants: ["UI/UX Design", "Figma"],
-                workStyle: "Async, structured sessions",
-                availability: "Weekday evenings"
-            },
-            {
-                id: 2,
-                name: "Jordan Lee",
-                tagline: "Code enthusiast learning to think like a designer",
-                offers: ["React", "Frontend Dev"],
-                wants: ["Python", "Machine Learning"],
-                workStyle: "Collaborative, real-time",
-                availability: "Flexible schedule"
-            },
-            {
-                id: 3,
-                name: "Priya Sharma",
-                tagline: "Turning ideas into beautiful experiences",
-                offers: ["UI/UX Design", "Branding"],
-                wants: ["Backend Development", "APIs"],
-                workStyle: "Mixed async & sync",
-                availability: "Weekends + evenings"
-            },
-            {
-                id: 4,
-                name: "Alex Rivera",
-                tagline: "Learning in public, building in private",
-                offers: ["Backend Development", "Node.js"],
-                wants: ["React", "Frontend"],
-                workStyle: "Focused deep work",
-                availability: "Morning sessions"
-            },
-            {
-                id: 5,
-                name: "Sam Taylor",
-                tagline: "Creative coder with a passion for clean design",
-                offers: ["JavaScript", "Web Dev"],
-                wants: ["Data Science", "Analytics"],
-                workStyle: "Pair programming",
-                availability: "Weekend marathons"
-            }
-        ];
-
-        const learningGroups = [
-            {
-                id: 1,
-                name: "Web Dev Circle",
-                members: 5,
-                commitment: "High",
-                description: "Learn together, build projects, and stay consistent with weekly check-ins."
-            },
-            {
-                id: 2,
-                name: "AI/ML Study Group",
-                members: 8,
-                commitment: "Medium",
-                description: "Explore machine learning concepts through shared resources and discussions."
-            },
-            {
-                id: 3,
-                name: "Design Thinkers",
-                members: 6,
-                commitment: "High",
-                description: "Practice UX research, critique designs, and grow design intuition together."
-            }
-        ];
-
-        const teammates = [
-            {
-                id: 1,
-                name: "Riley Kim",
-                role: "Backend Developer",
-                compatibility: 92,
-                reason: "Matched because of shared commitment level (high) and complementary skills in backend + frontend. Riley prefers structured workflows, just like you."
-            },
-            {
-                id: 2,
-                name: "Casey Morgan",
-                role: "Product Designer",
-                compatibility: 88,
-                reason: "Great fit for your project vision. Both value user-centered design and enjoy rapid prototyping."
-            },
-            {
-                id: 3,
-                name: "Jordan Davis",
-                role: "Full-Stack Engineer",
-                compatibility: 85,
-                reason: "Similar energy levels and working hours. Jordan's technical versatility complements your specialization."
-            }
-        ];
 
         function App() {
-            const [view, setView] = useState('dashboard');
-            const [womenOnlyMode, setWomenOnlyMode] = useState(false);
-            const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
-            const [swipeDirection, setSwipeDirection] = useState(null);
-            const [showMatchModal, setShowMatchModal] = useState(false);
-            const [matchedProfile, setMatchedProfile] = useState(null);
-            const [showChat, setShowChat] = useState(false);
-            const [chatMessages, setChatMessages] = useState([]);
-            const [formData, setFormData] = useState({});
+            const [page, setPage] = useState('login'); // 'login', 'signup', 'onboarding'
+            const [onboardingStep, setOnboardingStep] = useState(1);
+            const [authData, setAuthData] = useState({
+                email: '',
+                password: '',
+                confirmPassword: ''
+            });
+            const [profileData, setProfileData] = useState({
+                name: '',
+                age: '',
+                gender: '',
+                womenOnlyMode: false,
+                domains: [],
+                purpose: '',
+                communicationStyle: '',
+                teamVibe: '',
+                skills: [],
+                lookingFor: [],
+                availability: '',
+                timezone: '',
+                workStyle: ''
+            });
 
-            const handleSwipe = (direction) => {
-                setSwipeDirection(direction);
-                
-                if (direction === 'right') {
-                    setMatchedProfile(profiles[currentProfileIndex]);
-                    setTimeout(() => {
-                        setShowMatchModal(true);
-                    }, 300);
-                }
-
-                setTimeout(() => {
-                    if (currentProfileIndex < profiles.length - 1) {
-                        setCurrentProfileIndex(currentProfileIndex + 1);
-                        setSwipeDirection(null);
+            const handleLogin = (e) => {
+                e.preventDefault();
+                // Mock authentication - in production, use Firebase or backend
+                if (authData.email && authData.password) {
+                    // Check if user is new (mock check)
+                    const savedUser = localStorage.getItem('teamMosaicUser');
+                    if (savedUser) {
+                        // Existing user - redirect to dashboard
+                        window.location.href = 'team-mosaic.html';
                     } else {
-                        setView('learner');
+                        // New user - go to onboarding
+                        setPage('onboarding');
                     }
-                }, 500);
-            };
-
-            const handleMatch = () => {
-                setShowMatchModal(false);
-                setShowChat(true);
-                setChatMessages([
-                    `You've been matched based on skills, learning goals, and working style. Start by aligning expectations and timelines.`
-                ]);
-            };
-
-            const renderNavbar = () => (
-                <nav className="navbar">
-                    <div className="logo-section">
-                        <CircularText
-  text="team*mosaic*"
-  spinDuration={13}
-  onHover="speedUp"
-/>
-
-                        <div className="tagline">Where people don't just connect — they fit.</div>
-                    </div>
-                    <ul className="nav-links">
-                        <li><a href="#" onClick={() => setView('dashboard')}>Dashboard</a></li>
-                        <li><a href="#">Matches</a></li>
-                        <li><a href="#">Workspace</a></li>
-                        <li><a href="#">Community</a></li>
-                    </ul>
-                    <div className="nav-right">
-                        <div className="toggle-container">
-                            <span className="toggle-label">Women-Only Layer</span>
-                            <div 
-                                className={`toggle-switch ${womenOnlyMode ? 'active' : ''}`}
-                                onClick={() => setWomenOnlyMode(!womenOnlyMode)}
-                            >
-                                <div className="toggle-slider"></div>
-                            </div>
-                            <div className="tooltip">
-                                An optional safety layer for focused and comfortable collaboration.
-                            </div>
-                        </div>
-                        <div className="profile-avatar">JD</div>
-                    </div>
-                </nav>
-            );
-
-            const renderDashboard = () => (
-                <div className="main-container">
-                    <div className="welcome-header">
-                        <h1>Choose Your Path</h1>
-                        <p>Whether you're learning or building, find the right people to grow with.</p>
-                    </div>
-                    <div className="path-cards">
-                        <div className="path-card" onClick={() => setView('learner')}>
-                            <div className="path-icon">
-                                <svg width="40" height="40" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="30" cy="20" r="8" fill="white" opacity="0.8"/>
-                                    <path d="M15 35 Q15 30 30 30 Q45 30 45 35" stroke="white" strokeWidth="2" fill="none" opacity="0.8"/>
-                                    <circle cx="20" cy="45" r="4" fill="white" opacity="0.6"/>
-                                    <circle cx="30" cy="48" r="3" fill="white" opacity="0.6"/>
-                                    <circle cx="40" cy="45" r="4" fill="white" opacity="0.6"/>
-                                    <path d="M12 50 L48 50" stroke="white" strokeWidth="2" opacity="0.5"/>
-                                </svg>
-                            </div>
-                            <h2>Learn Better, Together</h2>
-                            <p>Find people who learn at your pace. Exchange skills, grow together, and stay motivated with peers who share your goals.</p>
-                            <button className="path-btn">Enter Learner Path</button>
-                        </div>
-                        <div className="path-card builder" onClick={() => setView('builder')}>
-                            <div className="path-icon">
-                                <svg width="40" height="40" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="30" cy="15" r="6" fill="white" opacity="0.8"/>
-                                    <path d="M22 25 L30 35 L38 25 Z" fill="white" opacity="0.7"/>
-                                    <rect x="26" y="35" width="8" height="15" rx="2" fill="white" opacity="0.6"/>
-                                    <path d="M20 48 L15 55 M40 48 L45 55" stroke="white" strokeWidth="2" opacity="0.5"/>
-                                    <circle cx="30" cy="28" r="2" fill="white" opacity="0.4"/>
-                                </svg>
-                            </div>
-                            <h2>Build with the Right Team</h2>
-                            <p>Turn ideas into reality with teammates who match your energy, commitment, and working style.</p>
-                            <button className="path-btn">Enter Builder Path</button>
-                        </div>
-                    </div>
-                </div>
-            );
-
-            const renderLearnerPath = () => (
-                <div className="main-container">
-                    <button className="back-btn" onClick={() => setView('dashboard')}>← Back to Dashboard</button>
-                    <div className="section-header">
-                        <h2>Learner Path</h2>
-                        <p>Connect with peers for skill exchange and collaborative learning.</p>
-                    </div>
-                    <div className="learner-options">
-                        <div className="option-card" onClick={() => setView('skill-swap')}>
-                            <h3>Skill Swap</h3>
-                            <p>Swipe through profiles and exchange skills with people who complement your learning journey.</p>
-                            <button className="option-btn">Start Swiping</button>
-                        </div>
-                        <div className="option-card" onClick={() => setView('peer-groups')}>
-                            <h3>Peer Learning Circles</h3>
-                            <p>Join small learning groups with shared interests, aligned goals, and mutual accountability.</p>
-                            <button className="option-btn">Explore Groups</button>
-                        </div>
-                    </div>
-                </div>
-            );
-
-            const renderSkillSwap = () => {
-                const currentProfile = profiles[currentProfileIndex];
-                if (!currentProfile) {
-                    return (
-                        <div className="main-container">
-                            <button className="back-btn" onClick={() => setView('learner')}>← Back</button>
-                            <div className="section-header">
-                                <h2>No more profiles!</h2>
-                                <p>Check back later for new matches.</p>
-                            </div>
-                        </div>
-                    );
                 }
+            };
+
+            const handleSignup = (e) => {
+                e.preventDefault();
+                if (authData.email && authData.password && 
+                    authData.password === authData.confirmPassword) {
+                    setPage('onboarding');
+                }
+            };
+
+            const toggleDomain = (domain) => {
+                setProfileData(prev => ({
+                    ...prev,
+                    domains: prev.domains.includes(domain)
+                        ? prev.domains.filter(d => d !== domain)
+                        : [...prev.domains, domain]
+                }));
+            };
+
+            const handleFinish = () => {
+                // Save to localStorage (mock backend)
+                localStorage.setItem('teamMosaicUser', JSON.stringify({
+                    ...authData,
+                    ...profileData
+                }));
+                // Redirect to dashboard
+                window.location.href = 'team-mosaic.html';
+            };
+
+            const canProceed = () => {
+                if (onboardingStep === 1) {
+                    return profileData.name && profileData.age && profileData.gender;
+                }
+                if (onboardingStep === 2) {
+                    return profileData.domains.length > 0 && profileData.purpose;
+                }
+                if (onboardingStep === 3) {
+                    return profileData.skills.length > 0 && profileData.lookingFor.length > 0;
+                }
+                if (onboardingStep === 4) {
+                    return profileData.communicationStyle && profileData.teamVibe && profileData.workStyle && profileData.availability;
+                }
+                return false;
+            };
+
+            const getProgressWidth = () => {
+                return ((onboardingStep - 1) / 3) * 100 + '%';
+            };
+
+            // Login Page
+            const renderLogin = () => (
+                <div className="auth-container">
+                    <div className="bg-decoration circle1"></div>
+                    <div className="bg-decoration circle2"></div>
+                    <div className="bg-decoration circle3"></div>
+                    
+                    <div className="auth-card">
+                        <div className="auth-header">
+                            <div className="logo">TeamMosaic</div>
+                            <div className="tagline">Build and learn with people who truly fit.</div>
+                        </div>
+
+                        <div className="welcome-text">
+                            Welcome back — your next great collaboration awaits.
+                        </div>
+
+                        <form onSubmit={handleLogin}>
+                            <div className="form-group">
+                                <label className="form-label">Email</label>
+                                <input
+                                    type="email"
+                                    className="form-input"
+                                    placeholder="your.email@example.com"
+                                    value={authData.email}
+                                    onChange={(e) => setAuthData({...authData, email: e.target.value})}
+                                    required
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label className="form-label">Password</label>
+                                <input
+                                    type="password"
+                                    className="form-input"
+                                    placeholder="Enter your password"
+                                    value={authData.password}
+                                    onChange={(e) => setAuthData({...authData, password: e.target.value})}
+                                    required
+                                />
+                            </div>
+
+                            <button type="submit" className="btn btn-primary">
+                                Log In
+                            </button>
+                        </form>
+
+                        <div className="switch-text">
+                            New here?{' '}
+                            <span className="switch-link" onClick={() => setPage('signup')}>
+                                Create an account
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            // Signup Page
+            const renderSignup = () => (
+                <div className="auth-container">
+                    <div className="bg-decoration circle1"></div>
+                    <div className="bg-decoration circle2"></div>
+                    <div className="bg-decoration circle3"></div>
+                    
+                    <div className="auth-card">
+                        <div className="auth-header">
+                            <div className="logo">TeamMosaic</div>
+                            <div className="tagline">Build and learn with people who truly fit.</div>
+                        </div>
+
+                        <div className="welcome-text">
+                            Let's get you started on your collaboration journey.
+                        </div>
+
+                        <form onSubmit={handleSignup}>
+                            <div className="form-group">
+                                <label className="form-label">Email</label>
+                                <input
+                                    type="email"
+                                    className="form-input"
+                                    placeholder="your.email@example.com"
+                                    value={authData.email}
+                                    onChange={(e) => setAuthData({...authData, email: e.target.value})}
+                                    required
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label className="form-label">Password</label>
+                                <input
+                                    type="password"
+                                    className="form-input"
+                                    placeholder="Create a strong password"
+                                    value={authData.password}
+                                    onChange={(e) => setAuthData({...authData, password: e.target.value})}
+                                    required
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label className="form-label">Confirm Password</label>
+                                <input
+                                    type="password"
+                                    className="form-input"
+                                    placeholder="Re-enter your password"
+                                    value={authData.confirmPassword}
+                                    onChange={(e) => setAuthData({...authData, confirmPassword: e.target.value})}
+                                    required
+                                />
+                            </div>
+
+                            <button type="submit" className="btn btn-primary">
+                                Create Account & Continue
+                            </button>
+                        </form>
+
+                        <div className="switch-text">
+                            Already have an account?{' '}
+                            <span className="switch-link" onClick={() => setPage('login')}>
+                                Log in
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            );
+
+            // Onboarding Step 1: Basic Details
+            const renderStep1 = () => (
+                <div className="onboarding-card">
+                    <h2 className="section-title">Let's get to know you</h2>
+                    <p className="section-subtitle">We'll use this to personalize your experience.</p>
+
+                    <div className="form-group">
+                        <label className="form-label">What should we call you?</label>
+                        <input
+                            type="text"
+                            className="form-input"
+                            placeholder="Your name or nickname"
+                            value={profileData.name}
+                            onChange={(e) => setProfileData({...profileData, name: e.target.value})}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label className="form-label">How old are you?</label>
+                        <input
+                            type="number"
+                            className="form-input"
+                            placeholder="Age"
+                            value={profileData.age}
+                            onChange={(e) => setProfileData({...profileData, age: e.target.value})}
+                            min="13"
+                            max="120"
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label className="form-label">What's your gender?</label>
+                        <div className="options-grid">
+                            {['Female', 'Male', 'Prefer not to say'].map(option => (
+                                <div
+                                    key={option}
+                                    className={`option-card ${profileData.gender === option ? 'selected' : ''}`}
+                                    onClick={() => setProfileData({...profileData, gender: option})}
+                                >
+                                    <div className="option-radio"></div>
+                                    <div className="option-label">{option}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {profileData.gender === 'Female' && (
+                        <div className="toggle-option">
+                            <div className="toggle-header">
+                                <div className="toggle-title">Enable Women-Only Collaboration Layer</div>
+                                <div
+                                    className={`toggle-switch ${profileData.womenOnlyMode ? 'active' : ''}`}
+                                    onClick={() => setProfileData({
+                                        ...profileData,
+                                        womenOnlyMode: !profileData.womenOnlyMode
+                                    })}
+                                >
+                                    <div className="toggle-slider"></div>
+                                </div>
+                            </div>
+                            <div className="toggle-helper">
+                                Optional safety layer. You can turn this on or off anytime.
+                            </div>
+                        </div>
+                    )}
+
+                    <div className="nav-buttons">
+                        <button
+                            className="btn btn-next"
+                            onClick={() => setOnboardingStep(2)}
+                            disabled={!canProceed()}
+                        >
+                            Continue
+                        </button>
+                    </div>
+                </div>
+            );
+
+            // Onboarding Step 2: Interests & Domain
+            const renderStep2 = () => {
+                const domains = [
+                    'Web Development',
+                    'App Development',
+                    'AI / ML',
+                    'UI / UX Design',
+                    'Data / Analytics',
+                    'Content / Pitching',
+                    'Product Management',
+                    'Other'
+                ];
 
                 return (
-                    <div className="main-container">
-                        <button className="back-btn" onClick={() => setView('learner')}>← Back</button>
-                        <div className="section-header">
-                            <h2>Skill Swap</h2>
-                            <p>Find your perfect learning partner.</p>
-                        </div>
-                        <div className="swipe-container">
-                            <div className={`swipe-card ${swipeDirection === 'left' ? 'swipe-left' : ''} ${swipeDirection === 'right' ? 'swipe-right' : ''}`}>
-                                <div className="profile-header">
-                                    <div className="profile-name">{currentProfile.name}</div>
-                                    <div className="profile-tagline">"{currentProfile.tagline}"</div>
-                                </div>
-                                <div className="profile-section">
-                                    <h4>Can Teach</h4>
-                                    <div className="skill-tags">
-                                        {currentProfile.offers.map((skill, idx) => (
-                                            <span key={idx} className="skill-tag">{skill}</span>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className="profile-section">
-                                    <h4>Wants to Learn</h4>
-                                    <div className="skill-tags">
-                                        {currentProfile.wants.map((skill, idx) => (
-                                            <span key={idx} className="skill-tag">{skill}</span>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className="profile-section">
-                                    <h4>Working Style</h4>
-                                    <div className="profile-detail">{currentProfile.workStyle}</div>
-                                </div>
-                                <div className="profile-section">
-                                    <h4>Availability</h4>
-                                    <div className="profile-detail">{currentProfile.availability}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="swipe-buttons">
-                            <button className="swipe-btn pass" onClick={() => handleSwipe('left')}>❌</button>
-                            <button className="swipe-btn match" onClick={() => handleSwipe('right')}>❤️</button>
-                        </div>
-                    </div>
-                );
-            };
+                    <div className="onboarding-card">
+                        <h2 className="section-title">What excites you?</h2>
+                        <p className="section-subtitle">Tell us about your interests and goals.</p>
 
-            const renderPeerGroups = () => (
-                <div className="main-container">
-                    <button className="back-btn" onClick={() => setView('learner')}>← Back</button>
-                    <div className="section-header">
-                        <h2>Peer Learning Circles</h2>
-                        <p>Learn together with small, committed groups.</p>
-                    </div>
-                    <div className="groups-grid">
-                        {learningGroups.map(group => (
-                            <div key={group.id} className="group-card">
-                                <h3>{group.name}</h3>
-                                <div className="group-meta">
-                                    {group.members} learners · {group.commitment} commitment
-                                </div>
-                                <p>{group.description}</p>
-                                <button className="group-btn">Join Group</button>
-                                <button className="group-btn secondary">Learn More</button>
-                            </div>
-                        ))}
-                    </div>
-                    <div style={{textAlign: 'center', marginTop: '3rem'}}>
-                        <button className="option-btn">+ Create New Group</button>
-                    </div>
-                </div>
-            );
-
-            const renderBuilderPath = () => {
-                if (formData.submitted) {
-                    return (
-                        <div className="main-container">
-                            <button className="back-btn" onClick={() => {
-                                setView('dashboard');
-                                setFormData({});
-                            }}>← Back to Dashboard</button>
-                            <div className="section-header">
-                                <h2>Your Recommended Teammates</h2>
-                                <p>Based on your preferences and working style.</p>
-                            </div>
-                            <div className="teammates-grid">
-                                {teammates.map(teammate => (
-                                    <div key={teammate.id} className="teammate-card">
-                                        <div className="compatibility-badge">{teammate.compatibility}%</div>
-                                        <div className="teammate-name">{teammate.name}</div>
-                                        <div className="teammate-role">{teammate.role}</div>
-                                        <div className="match-reason">{teammate.reason}</div>
-                                        <button className="invite-btn">Invite to Project</button>
+                        <div className="form-group">
+                            <label className="form-label">📚 What domains interest you?</label>
+                            <div className="multiselect-grid">
+                                {domains.map(domain => (
+                                    <div
+                                        key={domain}
+                                        className={`option-card ${profileData.domains.includes(domain) ? 'selected' : ''}`}
+                                        onClick={() => toggleDomain(domain)}
+                                    >
+                                        <div className="option-checkbox"></div>
+                                        <div className="option-label">{domain}</div>
                                     </div>
                                 ))}
                             </div>
                         </div>
-                    );
-                }
 
-                return (
-                    <div className="main-container">
-                        <button className="back-btn" onClick={() => setView('dashboard')}>← Back to Dashboard</button>
-                        <div className="section-header">
-                            <h2>Builder Path</h2>
-                            <p>Tell us about your project and we'll find the perfect teammates.</p>
+                        <div className="form-group">
+                            <label className="form-label">🎯 What's your primary goal?</label>
+                            <div className="options-grid">
+                                {['Learn new skills', 'Build a project', 'Both equally'].map(option => (
+                                    <div
+                                        key={option}
+                                        className={`option-card ${profileData.purpose === option ? 'selected' : ''}`}
+                                        onClick={() => setProfileData({...profileData, purpose: option})}
+                                    >
+                                        <div className="option-radio"></div>
+                                        <div className="option-label">{option}</div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                        <div className="builder-form">
-                            <div className="form-group">
-                                <label>Preferred Role</label>
-                                <select>
-                                    <option>Frontend Developer</option>
-                                    <option>Backend Developer</option>
-                                    <option>Full-Stack Developer</option>
-                                    <option>Designer</option>
-                                    <option>Product Manager</option>
-                                </select>
-                            </div>
-                            <div className="form-group">
-                                <label>Project Interest</label>
-                                <select>
-                                    <option>Web Application</option>
-                                    <option>Mobile App</option>
-                                    <option>AI/ML Project</option>
-                                    <option>Design System</option>
-                                    <option>Open Source</option>
-                                </select>
-                            </div>
-                            <div className="form-group">
-                                <label>Working Style</label>
-                                <select>
-                                    <option>High energy, fast-paced</option>
-                                    <option>Steady and consistent</option>
-                                    <option>Flexible and adaptive</option>
-                                    <option>Deep focus sessions</option>
-                                </select>
-                            </div>
-                            <div className="form-group">
-                                <label>Commitment Level</label>
-                                <select>
-                                    <option>Full-time (30+ hrs/week)</option>
-                                    <option>Part-time (15-30 hrs/week)</option>
-                                    <option>Casual (5-15 hrs/week)</option>
-                                </select>
-                            </div>
-                            <div className="form-group">
-                                <label>Team Size Preference</label>
-                                <select>
-                                    <option>Solo with mentor</option>
-                                    <option>2-3 people</option>
-                                    <option>4-6 people</option>
-                                    <option>Larger team (7+)</option>
-                                </select>
-                            </div>
-                            <button 
-                                className="form-submit"
-                                onClick={() => setFormData({submitted: true})}
+
+                        <div className="nav-buttons">
+                            <button
+                                className="btn btn-back"
+                                onClick={() => setOnboardingStep(1)}
                             >
-                                Find My Team
+                                Back
+                            </button>
+                            <button
+                                className="btn btn-next"
+                                onClick={() => setOnboardingStep(3)}
+                                disabled={!canProceed()}
+                            >
+                                Continue
                             </button>
                         </div>
                     </div>
                 );
             };
 
-            const renderChat = () => (
-                <div className="main-container">
-                    <button className="back-btn" onClick={() => setShowChat(false)}>← Back</button>
-                    <div className="chat-container">
-                        <div className="chat-header">
-                            Skill Swap: {matchedProfile?.offers[0]} × {matchedProfile?.wants[0]}
+            // Onboarding Step 3: Skills
+            const renderStep3 = () => {
+                const skillOptions = [
+                    'JavaScript', 'Python', 'React', 'Node.js', 'Figma',
+                    'HTML/CSS', 'UI Design', 'Data Analysis', 'Project Mgmt',
+                    'Content Writing', 'Communication', 'Leadership'
+                ];
+
+                return (
+                    <div className="onboarding-card">
+                        <h2 className="section-title">What's in your toolkit?</h2>
+                        <p className="section-subtitle">Select skills you have and skills you want to learn.</p>
+
+                        <div className="form-group">
+                            <label className="form-label">✨ Your current skills</label>
+                            <div className="multiselect-grid">
+                                {skillOptions.map(skill => (
+                                    <div
+                                        key={skill}
+                                        className={`option-card ${profileData.skills.includes(skill) ? 'selected' : ''}`}
+                                        onClick={() => {
+                                            setProfileData(prev => ({
+                                                ...prev,
+                                                skills: prev.skills.includes(skill)
+                                                    ? prev.skills.filter(s => s !== skill)
+                                                    : [...prev.skills, skill]
+                                            }));
+                                        }}
+                                    >
+                                        <div className="option-checkbox"></div>
+                                        <div className="option-label">{skill}</div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                        <div className="chat-messages">
-                            {chatMessages.map((msg, idx) => (
-                                <div key={idx} className="chat-message system">
-                                    {msg}
-                                </div>
-                            ))}
+
+                        <div className="form-group">
+                            <label className="form-label">🚀 Skills you want to learn</label>
+                            <div className="multiselect-grid">
+                                {skillOptions.map(skill => (
+                                    <div
+                                        key={`learn-${skill}`}
+                                        className={`option-card ${profileData.lookingFor.includes(skill) ? 'selected' : ''}`}
+                                        onClick={() => {
+                                            setProfileData(prev => ({
+                                                ...prev,
+                                                lookingFor: prev.lookingFor.includes(skill)
+                                                    ? prev.lookingFor.filter(s => s !== skill)
+                                                    : [...prev.lookingFor, skill]
+                                            }));
+                                        }}
+                                    >
+                                        <div className="option-checkbox"></div>
+                                        <div className="option-label">{skill}</div>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                        <div className="chat-input">
-                            <input type="text" placeholder="Type your message..." />
-                            <button>Send</button>
+
+                        <div className="nav-buttons">
+                            <button
+                                className="btn btn-back"
+                                onClick={() => setOnboardingStep(2)}
+                            >
+                                Back
+                            </button>
+                            <button
+                                className="btn btn-next"
+                                onClick={() => setOnboardingStep(4)}
+                                disabled={!canProceed()}
+                            >
+                                Continue
+                            </button>
                         </div>
                     </div>
+                );
+            };
+
+            // Onboarding Step 4: Work Style & Availability
+            const renderStep4 = () => {
+                const communicationStyles = [
+                    'Calm & thoughtful',
+                    'Energetic & expressive',
+                    'Direct & to-the-point'
+                ];
+
+                const teamVibes = ['Curious', 'Confident', 'Enthusiastic', 'Reliable'];
+                const workStyles = ['Async collaboration', 'Real-time pair work', 'Structured sessions', 'Flexible'];
+
+                return (
+                    <div className="onboarding-card">
+                        <h2 className="section-title">How do you work best?</h2>
+                        <p className="section-subtitle">Help us match you with compatible teammates.</p>
+
+                        <div className="form-group">
+                            <label className="form-label">💬 Communication style</label>
+                            <div className="options-grid">
+                                {communicationStyles.map(style => (
+                                    <div
+                                        key={style}
+                                        className={`option-card ${profileData.communicationStyle === style ? 'selected' : ''}`}
+                                        onClick={() => setProfileData({...profileData, communicationStyle: style})}
+                                    >
+                                        <div className="option-radio"></div>
+                                        <div className="option-label">{style}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <label className="form-label">🎭 One word for your team vibe</label>
+                            <div className="multiselect-grid">
+                                {teamVibes.map(vibe => (
+                                    <div
+                                        key={vibe}
+                                        className={`option-card ${profileData.teamVibe === vibe ? 'selected' : ''}`}
+                                        onClick={() => setProfileData({...profileData, teamVibe: vibe})}
+                                    >
+                                        <div className="option-radio"></div>
+                                        <div className="option-label">{vibe}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <label className="form-label">⏰ How do you prefer to collaborate?</label>
+                            <div className="options-grid">
+                                {workStyles.map(style => (
+                                    <div
+                                        key={style}
+                                        className={`option-card ${profileData.workStyle === style ? 'selected' : ''}`}
+                                        onClick={() => setProfileData({...profileData, workStyle: style})}
+                                    >
+                                        <div className="option-radio"></div>
+                                        <div className="option-label">{style}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <label className="form-label">📅 When are you usually available?</label>
+                            <div className="options-grid">
+                                {['Weekday mornings', 'Weekday evenings', 'Weekends', 'Very flexible'].map(time => (
+                                    <div
+                                        key={time}
+                                        className={`option-card ${profileData.availability === time ? 'selected' : ''}`}
+                                        onClick={() => setProfileData({...profileData, availability: time})}
+                                    >
+                                        <div className="option-radio"></div>
+                                        <div className="option-label">{time}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="nav-buttons">
+                            <button
+                                className="btn btn-back"
+                                onClick={() => setOnboardingStep(3)}
+                            >
+                                Back
+                            </button>
+                            <button
+                                className="btn btn-next"
+                                onClick={handleFinish}
+                                disabled={!canProceed()}
+                            >
+                                Finish & Go to Dashboard
+                            </button>
+                        </div>
+                    </div>
+                );
+            };
+
+            // Onboarding Container
+            const renderOnboarding = () => (
+                <div className="onboarding-container">
+                    <div className="onboarding-header">
+                        <h1>Complete Your Profile</h1>
+                        <p>This helps us match you with the right people.</p>
+                    </div>
+
+                    <div className="progress-container">
+                        <div className="progress-steps">
+                            <div className="progress-line"></div>
+                            <div className="progress-line-active" style={{width: getProgressWidth()}}></div>
+                            <div className={`progress-step ${onboardingStep >= 1 ? 'active' : ''} ${onboardingStep > 1 ? 'completed' : ''}`}>
+                                1
+                            </div>
+                            <div className={`progress-step ${onboardingStep >= 2 ? 'active' : ''} ${onboardingStep > 2 ? 'completed' : ''}`}>
+                                2
+                            </div>
+                            <div className={`progress-step ${onboardingStep >= 3 ? 'active' : ''} ${onboardingStep > 3 ? 'completed' : ''}`}>
+                                3
+                            </div>
+                            <div className={`progress-step ${onboardingStep >= 4 ? 'active' : ''} ${onboardingStep > 4 ? 'completed' : ''}`}>
+                                4
+                            </div>
+                        </div>
+                        <div className="progress-labels">
+                            <span className={onboardingStep === 1 ? 'active' : ''}>About You</span>
+                            <span className={onboardingStep === 2 ? 'active' : ''}>Interests</span>
+                            <span className={onboardingStep === 3 ? 'active' : ''}>Skills</span>
+                            <span className={onboardingStep === 4 ? 'active' : ''}>Work Style</span>
+                        </div>
+                    </div>
+
+                    {onboardingStep === 1 && renderStep1()}
+                    {onboardingStep === 2 && renderStep2()}
+                    {onboardingStep === 3 && renderStep3()}
+                    {onboardingStep === 4 && renderStep4()}
                 </div>
             );
 
             return (
                 <>
-                    {renderNavbar()}
-                    {womenOnlyMode && (
-                        <div className="women-only-badge">
-                            🛡️ Women-Only Mode Active
-                        </div>
-                    )}
-                    {showChat ? renderChat() :
-                     view === 'dashboard' ? renderDashboard() :
-                     view === 'learner' ? renderLearnerPath() :
-                     view === 'skill-swap' ? renderSkillSwap() :
-                     view === 'peer-groups' ? renderPeerGroups() :
-                     view === 'builder' ? renderBuilderPath() :
-                     renderDashboard()}
-                    
-                    {showMatchModal && matchedProfile && (
-                        <div className="modal-overlay" onClick={() => setShowMatchModal(false)}>
-                            <div className="modal" onClick={e => e.stopPropagation()}>
-                                <h2>It's a Match! 🎉</h2>
-                                <p>You both want to learn and grow together.</p>
-                                <button className="modal-btn" onClick={handleMatch}>
-                                    Start Chatting
-                                </button>
-                            </div>
-                        </div>
-                    )}
+                    {page === 'login' && renderLogin()}
+                    {page === 'signup' && renderSignup()}
+                    {page === 'onboarding' && renderOnboarding()}
                 </>
             );
         }
